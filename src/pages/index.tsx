@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Link, type PageProps, graphql, type HeadProps } from "gatsby";
+import * as React from 'react'
+import { Link, type PageProps, graphql, type HeadProps } from 'gatsby'
 
 function NoPosts(): React.ReactElement {
   return (
@@ -7,18 +7,18 @@ function NoPosts(): React.ReactElement {
       No posts found. Please create a post in Sanity Studio and publish it to
       see it here.
     </p>
-  );
+  )
 }
 
 function IndexPage({
   data: {
     allSanityPost: { nodes },
-    site,
-  },
+    site
+  }
 }: PageProps<Queries.IndexPageQuery>): React.ReactElement {
-  const posts = nodes !== null && nodes.length > 0 ? nodes : [];
+  const posts = nodes !== null && nodes.length > 0 ? nodes : []
   if (posts.length === 0) {
-    return <NoPosts />;
+    return <NoPosts />
   }
 
   const featuredPost = {
@@ -27,20 +27,20 @@ function IndexPage({
     link:
       posts[0].slug?.current !== undefined && posts[0].slug.current !== null
         ? `/posts/${posts[0].slug.current}`
-        : "",
+        : '',
     readMore:
-      posts[0].readMore === null ? "Continue reading..." : posts[0].readMore,
-  };
-  const otherPosts = posts.slice(1).map((post) => ({
+      posts[0].readMore === null ? 'Continue reading...' : posts[0].readMore
+  }
+  const otherPosts = posts.slice(1).map(post => ({
     title: post.title,
     description: post.description,
     link:
       post.slug?.current !== undefined && post.slug.current !== null
         ? `/posts/${post.slug.current}`
-        : "",
-    readMore: post.readMore === null ? "Continue reading..." : post.readMore,
-  }));
-  const siteMetadata = site?.siteMetadata;
+        : '',
+    readMore: post.readMore === null ? 'Continue reading...' : post.readMore
+  }))
+  const siteMetadata = site?.siteMetadata
 
   return (
     <>
@@ -61,7 +61,7 @@ function IndexPage({
         </article>
         {otherPosts.length > 0 && (
           <ul>
-            {otherPosts.map((post) => (
+            {otherPosts.map(post => (
               <li key={post.title}>
                 <article>
                   <h3>{post.title}</h3>
@@ -78,21 +78,21 @@ function IndexPage({
         )}
       </main>
     </>
-  );
+  )
 }
 
-export default IndexPage;
+export default IndexPage
 export function Head({
-  data: { site },
+  data: { site }
 }: HeadProps<Queries.IndexPageQuery>): React.ReactElement {
-  const siteMetadata = site?.siteMetadata;
+  const siteMetadata = site?.siteMetadata
 
   return (
     <>
       <title>{siteMetadata?.title}</title>
       <body className="prose lg:prose-xl font-serif mx-8 my-4" />
     </>
-  );
+  )
 }
 
 export const query = graphql`
@@ -115,4 +115,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`
